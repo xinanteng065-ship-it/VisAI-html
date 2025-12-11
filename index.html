@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VisAI - あなた専用のAIニュース配信</title>
     <style>
-        /* --- 既存CSS (省略部分を含む全CSS) --- */
         * {
             margin: 0;
             padding: 0;
@@ -39,24 +38,6 @@
             }
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
-            }
-        }
-
         /* ヘッダー */
         header {
             background: #fff;
@@ -84,11 +65,14 @@
             -webkit-background-clip: text;
             color: transparent;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
         }
 
         nav a {
-            margin-left: 1.5rem;
             color: #5a6c7d;
             text-decoration: none;
             font-size: 0.9rem;
@@ -103,7 +87,7 @@
         .hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 5rem 1.5rem;
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -127,43 +111,6 @@
             z-index: 1;
         }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 3.5rem);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            letter-spacing: -1px;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .hero p {
-            font-size: clamp(1.1rem, 3vw, 1.4rem);
-            margin-bottom: 2.5rem;
-            opacity: 0.95;
-            font-weight: 300;
-            animation: fadeInUp 0.8s ease-out 0.2s backwards;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #667eea;
-            padding: 1.2rem 2.5rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            /* buttonからaタグに変わったためcursor: pointer;は不要 */
-            border: none;
-            animation: fadeInUp 0.8s ease-out 0.4s backwards, pulse 2s ease-in-out 1.2s infinite;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-        }
-
         .badge {
             display: inline-block;
             background: rgba(255,255,255,0.2);
@@ -171,12 +118,47 @@
             border-radius: 20px;
             font-size: 0.9rem;
             margin-bottom: 1rem;
-            animation: fadeInUp 0.8s ease-out, glow 2s ease-in-out infinite;
         }
-        
+
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+
+        /* セクション共通 */
+        section {
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+        }
+
         .section-title {
             text-align: center;
-            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: 700;
             color: #2c3e50;
             margin-bottom: 1rem;
@@ -189,11 +171,9 @@
             margin-bottom: 3rem;
         }
 
-        /* 💡 モバイルデモセクション 💡 */
+        /* モバイルデモセクション */
         .demo-section {
-            padding: 5rem 1.5rem;
             background: white;
-            overflow: hidden;
         }
 
         .demo-content {
@@ -202,40 +182,21 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            gap: 4rem;
+            gap: clamp(2rem, 5vw, 4rem);
+            flex-wrap: wrap;
         }
 
-        .demo-text {
-            max-width: 500px;
-            text-align: left;
-        }
-
-        .demo-text h2 {
-            font-size: clamp(1.8rem, 4vw, 2.2rem);
-            color: #667eea;
-            margin-bottom: 1rem;
-        }
-        
-        .demo-text p {
-            font-size: 1.1rem;
-            color: #5a6c7d;
-            margin-bottom: 1.5rem;
-        }
-        
-        /* モバイルフレームデザイン */
         .mobile-frame {
             position: relative;
-            width: 320px; 
-            height: 600px;
+            width: min(320px, 90vw);
+            height: min(600px, 70vh);
             border: 10px solid #222;
             border-radius: 40px;
             background: #f0f0f0;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             overflow: hidden;
             flex-shrink: 0;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s ease-out forwards 0.2s, float 4s ease-in-out infinite 1s;
+            animation: float 4s ease-in-out infinite;
         }
 
         .mobile-frame::before {
@@ -254,93 +215,153 @@
         .screen-content {
             width: 100%;
             height: 100%;
-            background-color: #f0f0f0; 
-            background-image: url('https://via.placeholder.com/320x600/e6f0ff/495057?text=VisAI+LINE%E7%94%BB%E9%9D%A2%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8'); 
-            background-size: cover;
-            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #495057;
-            font-weight: 600;
-            text-align: center;
+            padding: 10px;
+        }
+
+        .screen-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 28px;
+        }
+
+        .demo-text {
+            max-width: 500px;
+            text-align: left;
+        }
+
+        .demo-text h2 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: #2c3e50;
+            margin-bottom: 1rem;
         }
         
+        .demo-text p {
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            color: #5a6c7d;
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-text ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .demo-text li {
+            margin-bottom: 0.5rem;
+            color: #667eea;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .video-container {
+    display: flex;
+    justify-content: center;   /* 水平方向で中央寄せ */
+    width: 100%;
+}
+
+.video-wrapper {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 アスペクト比 */
+    width: 100%;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+
         /* 使い方セクション */
         .how-to {
-            background: #f8f9fa;
-            padding: 5rem 1.5rem;
+            background: white;
         }
         
         .steps {
             max-width: 900px;
             margin: 0 auto;
             display: grid;
-            gap: 3rem;
+            gap: 2rem;
         }
 
         .step {
             display: grid;
-            grid-template-columns: 80px 1fr;
-            gap: 2rem;
+            grid-template-columns: clamp(60px, 10vw, 80px) 1fr;
+            gap: clamp(1rem, 3vw, 2rem);
             align-items: start;
-            opacity: 0;
-            animation: fadeInUp 0.6s ease-out forwards;
         }
         
         .step-number {
-            width: 80px;
-            height: 80px;
+            width: clamp(60px, 10vw, 80px);
+            height: clamp(60px, 10vw, 80px);
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
             font-weight: 700;
             flex-shrink: 0;
         }
 
         .step-content h3 {
-            font-size: 1.4rem;
+            font-size: clamp(1.2rem, 3vw, 1.4rem);
             color: #2c3e50;
             margin-bottom: 0.5rem;
         }
 
         .step-content p {
             color: #5a6c7d;
-        }
-        
-        /* 広告エリアのスタイル */
-        .ad-area {
-            max-width: 1200px;
-            margin: 4rem auto 2rem auto;
-            padding: 2.5rem;
-            background: #e9f0ff;
-            border: 2px solid #667eea;
-            border-radius: 12px;
-            text-align: center;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards 0.8s;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
-        .ad-area p {
-            font-size: 1.1rem;
-            color: #2c3e50;
-            font-weight: 600;
-            margin-bottom: 1rem;
+        /* 推奨コンテンツエリア */
+        .content-section {
+            background: #f8f9fa;
         }
-        .ad-area .ad-placeholder {
-            min-height: 100px;
-            background: #fff;
-            border: 1px dashed #667eea;
+
+        .content-card {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: clamp(2rem, 5vw, 3rem);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .content-card h3 {
+            font-size: clamp(1.3rem, 3vw, 1.6rem);
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .content-card p {
+            color: #5a6c7d;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+        }
+
+        .ad-placeholder {
+            min-height: 250px;
+            background: #f0f4f8;
+            border: 2px dashed #cbd5e0;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #667eea;
+            color: #718096;
             font-size: 0.9rem;
-            margin-top: 1rem;
+            text-align: center;
+            padding: 1rem;
         }
 
         /* CTAセクション */
@@ -348,25 +369,17 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-align: center;
-            padding: 5rem 1.5rem;
-            position: relative;
-            overflow: hidden;
         }
 
         .cta-section h2 {
-            font-size: clamp(2rem, 5vw, 3rem);
+            font-size: clamp(1.8rem, 5vw, 3rem);
             margin-bottom: 1rem;
             font-weight: 700;
         }
         
         .cta-section p {
-            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            font-size: clamp(1rem, 3vw, 1.4rem);
             margin-bottom: 2rem;
-        }
-        
-        .cta-button.inverted {
-            background: white;
-            color: #667eea;
         }
 
         /* フッター */
@@ -379,13 +392,10 @@
         .footer-content {
             max-width: 1200px;
             margin: 0 auto 2rem;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        .footer-section {
-            margin: 1rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
         }
 
         .footer-section h4 {
@@ -414,71 +424,65 @@
             font-size: 0.8rem;
             color: #95a5a6;
         }
-        
+
         /* モーダル */
         .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 2000; 
+            display: none;
+            position: fixed;
+            z-index: 2000;
             left: 0;
             top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgba(0,0,0,0.4); 
-            padding-top: 60px;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            padding: 1rem;
         }
 
         .modal-content {
             background-color: #fefefe;
-            margin: 5% auto; 
-            padding: 30px;
+            margin: 5% auto;
+            padding: 2rem;
             border-radius: 12px;
-            width: 80%; 
+            width: 90%;
             max-width: 400px;
             text-align: center;
             position: relative;
-            animation: fadeInUp 0.3s ease-out;
         }
 
         .close {
             color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
             position: absolute;
             top: 10px;
             right: 20px;
+            font-size: 28px;
+            font-weight: bold;
             cursor: pointer;
         }
 
-        .close:hover,
-        .close:focus {
+        .close:hover {
             color: #000;
-            text-decoration: none;
-            cursor: pointer;
         }
 
         .qr-code-container {
             margin: 1.5rem 0;
         }
         
-        /* QRコードの画像サイズ調整と中央揃え */
         .qr-code-container img {
-            width: 200px;
-            height: 200px;
+            width: min(200px, 80vw);
+            height: auto;
+            aspect-ratio: 1;
             border-radius: 8px;
-            margin: 0 auto 0.5rem;
+            margin: 0 auto;
             display: block;
         }
 
         .line-add-button {
-            /* アイコンとテキストを横並びにする */
-            display: inline-flex; 
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: #09b852;
-            color: rgb(255, 255, 255);
+            background: #06C755;
+            color: white;
             padding: 1rem 2rem;
             border-radius: 8px;
             font-size: 1.1rem;
@@ -491,29 +495,26 @@
             background: #05ae4a;
         }
 
-        /* LINEアイコンのスタイル */
         .line-add-button img {
             width: 24px;
             height: 24px;
             margin-right: 10px;
-            /* SVGやPNGが白く見えるように調整 */
             filter: brightness(0) invert(1);
         }
 
-        /* 💡 サブページ（規約・ポリシー・FAQ）共通デザイン 💡 */
+        /* サブページ */
         .subpage-container {
-            padding: 4rem 1.5rem;
-            min-height: 80vh; 
+            padding: clamp(2rem, 6vw, 4rem) 1.5rem;
+            min-height: 80vh;
         }
         
         .subpage-content {
             max-width: 800px;
             margin: 0 auto;
             background: white;
-            padding: 2.5rem;
+            padding: clamp(1.5rem, 4vw, 2.5rem);
             border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            animation: fadeInUp 0.6s ease-out;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
         .subpage-back-link {
@@ -531,7 +532,7 @@
         }
 
         .subpage-content h1 {
-            font-size: 2rem;
+            font-size: clamp(1.6rem, 4vw, 2rem);
             color: #2c3e50;
             margin-bottom: 2rem;
             border-bottom: 2px solid #e1e8ed;
@@ -540,75 +541,54 @@
         
         .subpage-content h2 {
             color: #667eea;
-            margin-top: 2.5rem;
+            margin-top: 2rem;
             margin-bottom: 1rem;
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
         }
         
-        .subpage-content h3 { /* FAQのQのスタイル */
-            color: #2c3e50; 
-            margin-top: 2rem;
+        .subpage-content h3 {
+            color: #2c3e50;
+            margin-top: 1.5rem;
             margin-bottom: 0.5rem;
-            font-size: 1.2rem;
+            font-size: clamp(1.1rem, 2.5vw, 1.2rem);
         }
 
         .subpage-content p, .subpage-content li {
             color: #5a6c7d;
             line-height: 1.8;
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
         
-        .subpage-content ul {
-            list-style-type: disc;
+        .subpage-content ul, .subpage-content ol {
             margin-left: 1.5rem;
             margin-bottom: 1.5rem;
         }
         
-        .subpage-content ul li {
+        .subpage-content li {
             margin-bottom: 0.5rem;
         }
 
-        /* レスポンシブ */
+        .hidden {
+            display: none !important;
+        }
+
+        /* レスポンシブ調整 */
         @media (max-width: 768px) {
             nav {
                 display: none;
             }
 
-            .step {
-                grid-template-columns: 60px 1fr;
-                gap: 1.5rem;
-            }
-
-            .step-number {
-                width: 60px;
-                height: 60px;
-                font-size: 1.5rem;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            /* モバイルデモセクションのレスポンシブ調整 */
             .demo-content {
                 flex-direction: column;
-                gap: 3rem;
             }
+
             .demo-text {
                 text-align: center;
-                order: 2; 
             }
-            .mobile-frame {
-                order: 1; 
-                width: 280px;
-                height: 525px;
-            }
-        }
 
-        .hidden {
-            display: none !important;
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -619,6 +599,7 @@
                 <div class="logo">VisAI</div>
                 <nav>
                     <a href="#demo">画面イメージ</a>
+                    <a href="#intro-video">紹介動画</a>
                     <a href="#how-to">使い方</a>
                 </nav>
             </div>
@@ -626,55 +607,53 @@
 
         <section class="hero">
             <div class="hero-content">
-                <div class="badge">完全無料のAIニュース Bot</div>
+                <div class="badge">完全無料のAIニュース配信</div>
                 <h1>あなた専用のニュース配信</h1>
                 <p>AIがあなたの興味に合わせて最新ニュースを厳選。LINEで毎日届く、パーソナライズされた情報体験。</p>
-                <a href="https://line.me/R/ti/p/@298qcfgk" target="_blank" class="cta-button" onclick="return isDesktop()">
+                <a href="https://line.me/R/ti/p/@298qcfgk" target="_blank" class="cta-button" onclick="return checkDevice()">
                     無料で友だち追加
                 </a>
             </div>
         </section>
 
         <section id="demo" class="demo-section">
-            <h2 class="section-title" style="margin-bottom: 4rem;">実際の配信画面イメージ</h2>
+            <h2 class="section-title">実際の配信画面イメージ</h2>
+            <p class="section-subtitle">スマホで簡単にチェック</p>
             <div class="demo-content">
                 <div class="mobile-frame">
                     <div class="screen-content">
-                        <img src="Screenshot_20251208-154218.png" alt="VisAI ニュース配信画面" style="max-width: 95%; height: auto; border-radius: 28px;">
+                        <img src="Screenshot_20251208-154218.png" alt="VisAI ニュース配信画面">
                     </div>
                 </div>
                 <div class="demo-text">
-                    <h2 style="color:#2c3e50;">毎日、必要な情報だけをLINEでお届け</h2>
+                    <h2>毎日、必要な情報だけをLINEでお届け</h2>
                     <p>VisAIの配信は、"一目で内容が分かる要約"と、"関連する深掘りリンク"で構成されています。</p>
                     <p>長文のニュースを読む必要はありません。通勤中や休憩時間にサッとチェックするだけで、世の中の動きを正確に把握できます。</p>
-                    <ul style="list-style: none; padding-left: 0;">
-                        <li style="margin-bottom: 0.5rem; color: #667eea; font-weight: 600;">✓ 重要なトピックのみを厳選</li>
-                        <li style="margin-bottom: 0.5rem; color: #667eea; font-weight: 600;">✓ AIによる分かりやすい箇条書き要約</li>
-                        <li style="margin-bottom: 0.5rem; color: #667eea; font-weight: 600;">✓ 記事へのリンクもワンタップ</li>
+                    <ul>
+                        <li>✓ 重要なトピックのみを厳選</li>
+                        <li>✓ AIによる分かりやすい箇条書き要約</li>
+                        <li>✓ 記事へのリンクもワンタップ</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-    <section class="ad-section-bottom">
-    <div class="ad-area" style="background:#e8f8f4; border: 2px solid #06C755; border-radius: 15px; padding: 20px; max-width:700px; margin:0 auto;">
-        <p class="ad-text-bottom">
-            — スマートな情報収集の次は、あなたの生活をスマートに。 —
-        </p>
-        <p class="ad-text-bottom-small">
-            スキマ時間にゲームを楽しみながらポイントを貯めよう！
-        </p>
-    <p class="ad-text-bottom-small">
-            ▼ 詳しくはこちらから
-        </p>
-        <a href="https://px.a8.net/svt/ejp?a8mat=45G9TJ+ADW8OI+589S+5ZMCH" rel="nofollow">
-<img border="0" width="300" height="250" alt="" src="https://www26.a8.net/svt/bgt?aid=251022007628&wid=001&eno=01&mid=s00000024400001006000&mc=1"></a>
-<img border="0" width="1" height="1" src="https://www16.a8.net/0.gif?a8mat=45G9TJ+ADW8OI+589S+5ZMCH" alt="">
+        <section id="intro-video" class="video-section">
+    <h2 class="section-title">VisAI 紹介動画</h2>
+    <p class="section-subtitle">どんなサービスか 1 分でわかる！</p>
+
+    <div class="video-container">
+        <div class="video-wrapper">
+            <iframe
+  src="https://www.youtube.com/embed/vyPc8Q1XptM"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen>
+</iframe>
+        </div>
     </div>
 </section>
-        
-       <div class="ai-translate-box">
-  <h2 c
+
         <section id="how-to" class="how-to">
             <h2 class="section-title">始め方</h2>
             <p class="section-subtitle">3ステップで簡単スタート</p>
@@ -689,16 +668,30 @@
                 <div class="step">
                     <div class="step-number">2</div>
                     <div class="step-content">
-                        <h3>設定変更 (ジャンル選択)</h3>
+                        <h3>興味のあるジャンルを選択</h3>
                         <p>「設定変更」と送信し、リンクからあなたの興味のあるニュースジャンルを選択します。</p>
                     </div>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <h3>ニュース受け取り</h3>
+                        <h3>ニュース受け取り開始</h3>
                         <p>毎朝8時に自動配信スタート。「今すぐ」と送信すればいつでも最新ニュースを受け取れます。</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">効率的な情報収集のその先へ</h2>
+            <p class="section-subtitle">VisAIで節約した時間を、あなたの成長に</p>
+            <div class="content-card">
+                <h3>グローバルな情報にもアクセス</h3>
+                <p>日本語のニュースだけでなく、海外の最新トレンドや技術情報も知りたい。そんなとき、AI翻訳ツールが強い味方になります。</p>
+                <p>英語の記事や動画も、瞬時に理解できる形に。翻訳後に元の文章と見比べることで、自然な英語学習にもつながります。</p>
+                <p>VisAIで効率化した時間を、新しいスキル習得に使ってみませんか？</p>
+                <div class="ad-placeholder">
+                    ここに広告を配置
                 </div>
             </div>
         </section>
@@ -706,7 +699,7 @@
         <section class="cta-section">
             <h2>今すぐ始めましょう</h2>
             <p>パーソナライズされたニュースを無料で体験</p>
-            <a href="https://line.me/R/ti/p/@298qcfgk" target="_blank" class="cta-button inverted" onclick="return isDesktop()">
+            <a href="https://line.me/R/ti/p/@298qcfgk" target="_blank" class="cta-button" onclick="return checkDevice()">
                 LINE友だち追加
             </a>
         </section>
@@ -716,6 +709,7 @@
                 <div class="footer-section">
                     <h4>サービス</h4>
                     <a href="#demo">画面イメージ</a>
+                    <a href="#intro-video">紹介動画</a>
                     <a href="#how-to">使い方</a>
                 </div>
                 <div class="footer-section">
@@ -732,8 +726,10 @@
             <div class="footer-bottom">
                 <p>&copy; 2025 VisAI. All rights reserved.</p>
             </div>
+        </footer>
     </div>
 
+    <!-- プライバシーポリシーページ -->
     <div id="privacyPage" class="hidden">
         <header>
             <div class="header-content">
@@ -742,70 +738,47 @@
         </header>
         <section class="subpage-container">
             <div class="subpage-content">
-    <a class="subpage-back-link" onclick="showMainPage()">← トップに戻る</a>
-    <h1>VisAI プライバシーポリシー</h1>
-    
-    <p>VisAI（以下「本サービス」）は、提供者（以下「当社」）が提供するサービスであり、ユーザーの個人情報の重要性を認識し、個人情報保護法および関連法令を遵守し、以下のとおりプライバシーポリシー（以下「本ポリシー」）を定めます。</p>
+                <a class="subpage-back-link" onclick="showMainPage()">← トップに戻る</a>
+                <h1>プライバシーポリシー</h1>
+                
+                <p>VisAI（以下「本サービス」）は、ユーザーの個人情報の重要性を認識し、個人情報保護法および関連法令を遵守します。</p>
 
-    <h2>第1条（個人情報および収集する情報）</h2>
-    <ol>
-        <li>本ポリシーにおいて「個人情報」とは、個人情報保護法に定める「個人情報」を指すものとします。</li>
-        <li>当社は、本サービスの提供にあたり、以下の情報を自動的に、またはユーザーの操作に基づき収集します。これには、個人情報に該当するものとしないものが含まれます。</li>
-        <ul>
-            <li>**LINE ユーザーID**: ユーザー識別のための固有ID、メッセージ配信のために利用します。</li>
-            <li>**表示名（ニックネーム）**: LINEプロフィール情報のうち、メッセージ内の表示やパーソナライズのために利用します。</li>
-            <li>**ユーザーの設定情報**: ニュースの興味分野、配信頻度設定など、サービスパーソナライズのために利用します。</li>
-            <li>**サービス利用履歴**: コマンドの使用履歴、既読情報など、サービス改善のために利用します。</li>
-            <li>**Cookie情報およびアクセスログ**: Webサイト（設定画面等）へのアクセス解析のために利用します。</li>
-        </ul>
-    </ol>
+                <h2>第1条（収集する情報）</h2>
+                <ul>
+                    <li>LINE ユーザーID: サービス提供のため</li>
+                    <li>表示名: パーソナライズのため</li>
+                    <li>ユーザー設定情報: 興味分野、配信設定</li>
+                    <li>サービス利用履歴: 改善のため</li>
+                </ul>
 
-    <h2>第2条（利用目的）</h2>
-    <p>当社が個人情報を収集・利用する目的は、以下のとおりです。</p>
-    <ul>
-        <li>本サービス（ニュース配信、設定機能、応答機能）を提供・運営するため。</li>
-        <li>本サービスの品質向上、改善、および新機能開発のための分析・統計処理のため。</li>
-        <li>ユーザーからのお問い合わせに対応するため。</li>
-        <li>本サービスに関する重要なお知らせや、利用規約の変更等を通知するため。</li>
-        <li>パーソナライズされた広告（第4条参照）を表示・配信するため。</li>
-    </ul>
+                <h2>第2条（利用目的）</h2>
+                <ul>
+                    <li>ニュース配信サービスの提供</li>
+                    <li>サービス品質の向上</li>
+                    <li>お問い合わせ対応</li>
+                    <li>重要なお知らせの通知</li>
+                </ul>
 
-    <h2>第3条（安全管理措置）</h2>
-    <p>当社は、収集した個人情報の漏洩、滅失または毀損の防止、その他の個人情報の安全管理のために、必要かつ適切な措置を講じます。また、従業員および委託先（第5条参照）に対し、適切な監督を行います。</p>
+                <h2>第3条（安全管理措置）</h2>
+                <p>当社は、個人情報の漏洩、滅失を防ぐため、必要かつ適切な措置を講じます。</p>
 
-    <h2>第4条（第三者提供と委託）</h2>
-    <ol>
-        <li>当社は、法令に基づく場合や人の生命、身体または財産の保護のために必要な場合を除き、**ユーザーの同意なく**個人情報を第三者に提供することはありません。</li>
-        <li>当社は、本サービスの運営に必要な業務の一部を以下の外部サービスに委託しており、利用目的の達成に必要な範囲内で個人情報を預託します。</li>
-        <ul>
-            <li>LINE Messaging API（メッセージの送受信、ユーザー認証）</li>
-            <li>外部AIサービス（コンテンツの要約、応答処理）</li>
-            <li>ニュースAPIプロバイダー（ニュース情報の取得）</li>
-            <li>広告配信事業者（広告の最適化、配信）</li>
-        </ul>
-    </ol>
+                <h2>第4条（第三者提供）</h2>
+                <p>法令に基づく場合を除き、ユーザーの同意なく個人情報を第三者に提供することはありません。</p>
 
-    <h2>第5条（広告配信とトラッキング）</h2>
-    <ol>
-        <li>本サービスには、広告を掲載することがあり、広告最適化のため、ユーザーの興味分野や利用履歴に基づき、関連性の高い広告が表示されることがあります。</li>
-        <li>本サービス（Webサイト部分）では、アクセス解析や広告効果測定のためにCookieなどのトラッキング技術を使用する場合があります。ユーザーは、ブラウザの設定によりCookieの利用を拒否することができます。</li>
-    </ol>
+                <h2>第5条（お問い合わせ）</h2>
+                <p>メールアドレス: <a href="mailto:xinanteng065@gmail.com" style="color: #667eea;">xinanteng065@gmail.com</a></p>
 
-    <h2>第6条（個人情報の開示・訂正・削除）</h2>
-    <p>ユーザーは、当社に対し、自己の個人情報の開示、訂正、利用停止または削除を請求することができます。これらの請求を行う場合は、第7条のお問い合わせ窓口にご連絡ください。</p>
-
-    <h2>第7条（お問い合わせ窓口）</h2>
-    <p>本ポリシーに関するお問い合わせ、個人情報の取り扱いに関する苦情、または開示等のご請求は、以下の窓口までご連絡ください。</p>
-    <p>メールアドレス: <a href="mailto:xinanteng065@gmail.com" style="color: #667eea;">xinanteng065@gmail.com</a></p>
-
-    <h2>第8条（本ポリシーの変更）</h2>
-    <p>当社は、法令の変更、または本サービスの必要に応じて、本ポリシーを随時変更することができます。変更後の本ポリシーは、本サイトに掲載した時点から効力を生じるものとします。</p>
-
-    <p style="margin-top: 3rem; font-size: 0.9rem; color: #95a5a6;">制定日: 2025年12月8日</p>
-    <p style="font-size: 0.9rem; color: #95a5a6;">最終更新日: 2025年12月8日</p>
-</div>
+                <p style="margin-top: 3rem; font-size: 0.9rem; color: #95a5a6;">制定日: 2025年12月8日</p>
+            </div>
+        </section>
+        <footer>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VisAI. All rights reserved.</p>
+            </div>
+        </footer>
     </div>
 
+    <!-- 利用規約ページ -->
     <div id="termsPage" class="hidden">
         <header>
             <div class="header-content">
@@ -814,61 +787,36 @@
         </header>
         <section class="subpage-container">
             <div class="subpage-content">
-    <a class="subpage-back-link" onclick="showMainPage()">← トップに戻る</a>
-    <h1>VisAI 利用規約</h1>
+                <a class="subpage-back-link" onclick="showMainPage()">← トップに戻る</a>
+                <h1>利用規約</h1>
 
-    <h2>第1条（適用）</h2>
-    <p>
-        本規約は、VisAI（以下「本サービス」）の提供条件および本サービスの利用に関する提供者とユーザーとの間の権利義務を定めるものであり、本サービスの利用に関する一切の関係に適用されます。ユーザーは、本サービスを利用した時点で本規約に同意したものとみなします。
-    </p>
+                <h2>第1条（適用）</h2>
+                <p>本規約は、VisAI（以下「本サービス」）の提供条件およびユーザーとの権利義務を定めます。</p>
 
-    <h2>第2条（サービス内容および利用料）</h2>
-    <ol>
-        <li>本サービスは、AIがニュースソースから情報を収集し、要約・編集して、LINEを通じてユーザーに自動配信するサービスです。</li>
-        <li>本サービスの基本利用は**無料**です。ただし、将来的にオプション機能の提供（有料）を行う可能性があります。</li>
-        <li>本サービスを利用するために必要な通信機器の準備、設置、および通信料（パケット代等）は、全てユーザーの費用と責任において負担するものとします。</li>
-    </ol>
+                <h2>第2条（サービス内容）</h2>
+                <p>本サービスは、AIがニュースを収集・要約し、LINEを通じて自動配信するサービスです。基本利用は無料です。</p>
 
-    <h2>第3条（権利帰属）</h2>
-    <ol>
-        <li>本サービスを通じて提供される全ての情報、コンテンツ、デザイン、著作物に関する著作権、商標権、その他の知的財産権は、提供者または提供者に利用許諾を与えた第三者に帰属します。</li>
-        <li>ユーザーは、本サービスから配信されたニュースの要約およびコンテンツを、私的利用の範囲を超えて、**無断で複製、転載、公衆送信、改変、その他の二次利用を行うことを禁じます。**</li>
-    </ol>
+                <h2>第3条（禁止事項）</h2>
+                <ul>
+                    <li>法令または公序良俗に反する行為</li>
+                    <li>第三者の権利を侵害する行為</li>
+                    <li>サービス運営を妨害する行為</li>
+                </ul>
 
-    <h2>第4条（禁止事項）</h2>
-    <p>ユーザーは、本サービスの利用にあたり、以下の行為を行ってはならないものとします。</p>
-    <ul>
-        <li>法令または公序良俗に反する行為、またはその恐れのある行為。</li>
-        <li>提供者または第三者の知的財産権、プライバシー権、名誉権その他の権利または利益を侵害する行為。</li>
-        <li>本サービスの運営を妨害する行為、または提供者の信用を毀損する行為。</li>
-        <li>不正な目的をもって本サービスを利用する行為。</li>
-        <li>その他、提供者が不適切と判断する行為。</li>
-    </ul>
+                <h2>第4条（免責事項）</h2>
+                <p>提供する情報の完全性、正確性について保証するものではありません。外部ソースに依存するため、配信遅延等が発生する可能性があります。</p>
 
-    <h2>第5条（免責事項）</h2>
-    <ol>
-        <li>提供者は、本サービスを通じて提供される情報（ニュース、要約、リンク先等）の完全性、正確性、信頼性、特定の目的への適合性、または合法性について、いかなる保証も行いません。</li>
-        <li>本サービスは、外部のニュースAPIや情報ソースに依存しているため、配信の遅延、停止、または内容の誤りが発生する可能性がありますが、これによりユーザーに生じた損害について、提供者は一切の責任を負いません。</li>
-        <li>提供者は、本サービスに関連してユーザーに生じたあらゆる損害について、故意または重過失による場合を除き、一切の責任を負いません。</li>
-    </ol>
-
-    <h2>第6条（サービスの停止、変更、終了）</h2>
-    <p>提供者は、ユーザーに事前に通知することなく、本サービスの内容の全部または一部を変更、追加、または停止できるものとします。また、サービスを終了する場合は、合理的な期間をもってユーザーに告知するものとします。</p>
-
-    <h2>第7条（本規約の変更）</h2>
-    <p>提供者は、必要と判断した場合には、ユーザーに通知することなく、いつでも本規約を変更できるものとします。変更後の本規約は、本サイトに掲載した時点から効力を生じるものとし、本規約変更後にユーザーが本サービスを利用した時点で、変更後の規約に同意したものとみなします。</p>
-
-    <h2>第8条（損害賠償）</h2>
-    <p>ユーザーが本規約に違反し、提供者に損害を与えた場合、提供者はユーザーに対し、当該損害の賠償を請求できるものとします。</p>
-
-    <p style="margin-top: 3rem; font-size: 0.9rem; color: #95a5a6;">制定日: 2025年12月8日</p>
-</div>
+                <p style="margin-top: 3rem; font-size: 0.9rem; color: #95a5a6;">制定日: 2025年12月8日</p>
+            </div>
         </section>
+        <footer>
             <div class="footer-bottom">
                 <p>&copy; 2025 VisAI. All rights reserved.</p>
             </div>
+        </footer>
     </div>
 
+    <!-- FAQページ -->
     <div id="faqPage" class="hidden">
         <header>
             <div class="header-content">
@@ -881,39 +829,35 @@
                 <h1>よくある質問 (FAQ)</h1>
                 
                 <h3>Q: 費用はかかりますか？</h3>
-                <p>A: VisAIは完全無料でご利用いただけます。将来的に機能追加に伴い有料プランを設ける可能性はありますが、現在の基本機能は永続的に無料で提供予定です。</p>
+                <p>A: 完全無料でご利用いただけます。</p>
                 
                 <h3>Q: 配信時間を変えることはできますか？</h3>
-                <p>A: はい、いつでも変更可能です。LINEで「設定変更」とメッセージを送ると、配信時間とジャンル選択用のリンクが届きます。</p>
+                <p>A: はい、「設定変更」とメッセージを送ることでいつでも変更可能です。</p>
 
                 <h3>Q: どのようなニュースが配信されますか？</h3>
-                <p>A: 政治、経済、IT、テクノロジー、国際、スポーツなど、ユーザーが設定した興味分野に特化したニュースをAIが世界中から厳選し、要約して配信します。</p>
+                <p>A: 政治、経済、IT、スポーツなど、設定した興味分野に特化したニュースを配信します。</p>
 
-                <h3>Q: 設定した興味分野を変更できますか？</h3>
-                <p>A: はい、いつでも変更可能です。LINEで「設定変更」とメッセージを送ると、配信時間とジャンル選択用のリンクが届きます。</p>
-
-                <h3>Q: 配信を停止するにはどうすればいいですか？</h3>
-                <p>A: LINEのVisAI公式アカウントをブロックするだけで、配信は即座に停止されます。</p>
-
-                <p style="margin-top: 3rem; font-size: 0.9rem; color: #95a5a6;">最終更新日: 2025年1月1日</p>
+                <h3>Q: 配信を停止するには？</h3>
+                <p>A: LINE公式アカウントをブロックすることで即座に停止されます。</p>
             </div>
         </section>
         <footer>
             <div class="footer-bottom">
                 <p>&copy; 2025 VisAI. All rights reserved.</p>
             </div>
+        </footer>
     </div>
 
-
+    <!-- LINEモーダル -->
     <div id="lineModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3 style="color:#667eea;">LINEで友だち追加！</h3>
-            <p style="color: #5a6c7d;">以下のQRコードをスキャンするか、ボタンをタップしてください。</p>
+            <h3 style="color:#667eea;">LINEで友だち追加</h3>
+            <p style="color: #5a6c7d;">QRコードをスキャンまたはボタンをタップ</p>
             
             <div class="qr-code-container">
                 <a href="https://line.me/R/ti/p/@298qcfgk" target="_blank">
-                    <img src="298qcfgk.png" alt="VisAI LINE 友だち追加QRコード">
+                    <img src="298qcfgk.png" alt="VisAI LINE QRコード">
                 </a>
                 <p style="font-size: 0.85rem; color: #5a6c7d;">LINEカメラで読み取れます</p>
             </div>
@@ -926,7 +870,7 @@
     </div>
     
     <script>
-        // 画面切り替えの関数
+        // ページ切り替え
         function showPage(pageId) {
             document.querySelectorAll('div[id$="Page"]').forEach(page => {
                 page.classList.add('hidden');
@@ -939,56 +883,25 @@
         function showPrivacyPolicy() { showPage('privacyPage'); }
         function showTerms() { showPage('termsPage'); }
         function showFAQ() { showPage('faqPage'); }
+        function showCompany() { showPage('companyPage'); }
 
-        
         // モーダル制御
         const modal = document.getElementById('lineModal');
         function openModal() { modal.style.display = 'block'; }
         function closeModal() { modal.style.display = 'none'; }
         window.onclick = function(event) {
-            if (event.target == modal) {
-                closeModal();
-            }
+            if (event.target == modal) closeModal();
         }
         
-        // 💡 追加した関数: PC/スマホの判定とモーダル表示の制御
-        function isDesktop() {
-            // モバイル環境の判定
-            const isMobile = /Mobi|Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
-            
+        // デバイス判定
+        function checkDevice() {
+            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
             if (!isMobile) {
-                // PC/デスクトップの場合、モーダルを開く
                 openModal();
-                return false; // aタグのリンク遷移をキャンセル
+                return false;
             }
-            // スマホの場合、aタグのリンク遷移を許可（LINEアプリが開く）
-            return true; 
+            return true;
         }
-
-        // スクロールに応じたフェードインアニメーション
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('.step, .ad-area, .mobile-frame, .subpage-content');
-
-            const options = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1 
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, options);
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-        });
     </script>
 </body>
 </html>
